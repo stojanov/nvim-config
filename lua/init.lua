@@ -1,5 +1,5 @@
 
-vim.wo.relativenumber = 1
+vim.wo.relativenumber = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.scrolloff = 12
@@ -15,8 +15,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 vim.bo.indentexpr=""
 
-require'nvim-treesitter.configs'.setup {
-  indent = {
-    enable = false 
-  }
-}
+-- require'nvim-treesitter.configs'.setup {
+--   indent = {
+--     enable = false 
+--   }
+-- }
+
+
+

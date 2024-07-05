@@ -7,10 +7,6 @@ return {
     end,
   },
     {
-        "nvimtools/none-ls.nvim",
-        event = "VeryLazy",
-    },
-    {
         "neovim/nvim-lspconfig",
         config = function()
             require "configs.lspconfig"
@@ -21,7 +17,8 @@ return {
         opts = {
             ensure_installed = {
                 "clangd",
-                "rust-analyzer"
+                "gopls",
+                "pyright"
             }
         }
     },
@@ -29,10 +26,6 @@ return {
         "Civitasv/cmake-tools.nvim",
         enabled = true,
         lazy = false,
-    },
-    {
-       "stevearc/overseer.nvim",
-        opts = {}
     },
     {
         "ThePrimeagen/harpoon",
@@ -43,16 +36,27 @@ return {
             require("configs.harpoon")
         end
     },
-    {
-      'mrcjkb/rustaceanvim',
-      version = '^3', -- Recommended
-      ft = { 'rust' },
-    },
+    -- {
+    --   'mrcjkb/rustaceanvim',
+    --   version = '^4', -- Recommended
+    --   ft = { 'rust' },
+    --   lazy = false 
+    -- },
     {
         "ray-x/lsp_signature.nvim",
         event = "VeryLazy",
         opts = {},
         config = function(_, opts) require("lsp_signature").setup(opts) end
+    },
+    -- {
+    --     "hrsh7th/cmp-nvim-lsp-signature-help",
+    --     event = "VeryLazy",
+    -- },
+    {
+        "iamcco/markdown-preview.nvim",
+        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+        ft = { "markdown" },
+        build = function() vim.fn["mkdp#util#install"]() end,
     }
       -- These are some examples, uncomment them if you want to see them work!
   -- {
