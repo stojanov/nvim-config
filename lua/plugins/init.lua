@@ -36,6 +36,16 @@ return {
             require("configs.harpoon")
         end
     },
+    {
+       "rebelot/kanagawa.nvim" 
+    },
+    {
+      "nvimtools/none-ls.nvim",
+      event = "VeryLazy",
+      opts = function()
+        return require("configs.none-ls")
+      end,
+    },
     -- {
     --   'mrcjkb/rustaceanvim',
     --   version = '^4', -- Recommended
