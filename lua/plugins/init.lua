@@ -17,7 +17,7 @@ return {
     },
     {
         "neovim/nvim-lspconfig",
-	event = "VeryLazy",
+        event = "VeryLazy",
         config = function()
             require "configs.lspconfig"
         end,
@@ -139,9 +139,6 @@ return {
         end,
     },
     {
-        "rebelot/kanagawa.nvim",
-    },
-    {
         "nvimtools/none-ls.nvim",
         event = "VeryLazy",
         opts = function()
@@ -188,6 +185,13 @@ return {
         end,
     },
     {
+        "nvim-treesitter/nvim-treesitter-context",
+        event = "VeryLazy",
+        config = function(_, opts)
+            require("treesitter-context").setup()
+        end
+    },
+    {
         "nvim-treesitter/nvim-treesitter",
         event = { "BufReadPost", "BufNewFile" },
         cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
@@ -213,6 +217,9 @@ return {
         lazy = false,
         priority = 1000,
         opts = {}
-    }
+    },
+    {
+        "rebelot/kanagawa.nvim",
+    },
 }
 
