@@ -1,7 +1,34 @@
 local cmp = require("cmp")
 
+cmp.setup.cmdline('/', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
+})
+
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    {
+      name = 'cmdline',
+      option = {
+        ignore_cmds = { 'Man', '!' }
+      }
+    }
+  })
+})
 return {
-    completion = { completeopt = "menu,menuone" },
+    performance = {
+        max_view_entries = 6
+    },
+
+    completion = {
+        completeopt = "menu,menuone",
+        keyword_length = 1,
+    },
 
     snippet = {
         expand = function(args)
@@ -44,7 +71,12 @@ return {
     },
 
     sources = {
-        { name = "nvim_lsp" },
+        {   name = "nvim_lsp",
+            keyword_length = 4,
+            option = {
+                keyword_length = 4
+            }
+        },
         { name = "luasnip" },
         { name = "buffer" },
         { name = "nvim_lua" },

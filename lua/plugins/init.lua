@@ -45,7 +45,7 @@ return {
     },
     {
         "hrsh7th/nvim-cmp",
-        event = "InsertEnter",
+        event = "VeryLazy",
         dependencies = {
             {
                 -- snippet plugin

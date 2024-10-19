@@ -34,7 +34,6 @@ map("n", "<leader>fw", "<cmd>Telescope live_grep<CR>", { desc = "telescope live 
 map("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "telescope find buffers" })
 map("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", { desc = "telescope help page" })
 map("n", "<leader>ma", "<cmd>Telescope marks<CR>", { desc = "telescope find marks" })
-map("n", "<leader>fo", "<cmd>Telescope oldfiles<CR>", { desc = "telescope find oldfiles" })
 map("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "telescope find in current buffer" })
 map("n", "<leader>cm", "<cmd>Telescope git_commits<CR>", { desc = "telescope git commits" })
 map("n", "<leader>gt", "<cmd>Telescope git_status<CR>", { desc = "telescope git status" })
@@ -47,3 +46,7 @@ map(
   "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>",
   { desc = "telescope find all files" }
 )
+
+map("n", "<leader>fd", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>")
+map("n", "<leader>fr", "<cmd>Telescope lsp_references<CR>")
+map("n", "<leader>fb", "<cmd>Telescope buffers<CR>")
