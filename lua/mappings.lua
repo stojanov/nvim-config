@@ -47,6 +47,7 @@ map(
   { desc = "telescope find all files" }
 )
 
-map("n", "<leader>fd", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>")
+map("n", "<leader>fs", "<cmd>Telescope lsp_document_symbols<CR>")
+map("n", "<leader>fS", "<cmd>Telescope lsp_dynamic_workspace symbols<CR>")
 map("n", "<leader>fr", "<cmd>Telescope lsp_references<CR>")
 map("n", "<leader>fb", "<cmd>Telescope buffers<CR>")

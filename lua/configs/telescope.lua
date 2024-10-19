@@ -19,4 +19,10 @@ return {
 
     extensions_list = { "themes", "terms" },
     extensions = {},
+
+    file_ignore_patterns = {
+        "node_modules",
+        "build",
+        "vendor"
+    }
 }

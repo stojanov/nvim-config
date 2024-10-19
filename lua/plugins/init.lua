@@ -205,7 +205,9 @@ return {
     },
     {
         'nvim-lualine/lualine.nvim',
-        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        dependencies = { 
+            'nvim-tree/nvim-web-devicons'
+        },
         event = "VeryLazy",
         config = function(_, opts)
             require("lualine").setup()
@@ -221,5 +223,13 @@ return {
     {
         "rebelot/kanagawa.nvim",
     },
+    {
+        "folke/trouble.nvim",
+        cmd = "Trouble",
+        opts = function()
+            require("configs.trouble")
+        end,
+        keys = require("configs.trouble_mappings")
+    }
 }
 
