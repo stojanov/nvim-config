@@ -22,7 +22,7 @@ cmp.setup.cmdline(':', {
 })
 return {
     performance = {
-        max_view_entries = 6
+        max_view_entries = 12
     },
 
     completion = {
@@ -72,9 +72,9 @@ return {
 
     sources = {
         {   name = "nvim_lsp",
-            keyword_length = 4,
+            keyword_length = 2,
             option = {
-                keyword_length = 4
+                keyword_length = 2
             }
         },
         { name = "luasnip" },

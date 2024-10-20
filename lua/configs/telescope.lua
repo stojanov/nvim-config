@@ -15,14 +15,13 @@ return {
         mappings = {
             n = { ["q"] = require("telescope.actions").close },
         },
+        file_ignore_patterns = {
+            "node_modules",
+            "build",
+            "vendor"
+        }
     },
 
     extensions_list = { "themes", "terms" },
     extensions = {},
-
-    file_ignore_patterns = {
-        "node_modules",
-        "build",
-        "vendor"
-    }
 }
