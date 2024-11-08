@@ -27,3 +27,7 @@ end)
 require "init"
 
 vim.lsp.set_log_level("debug")
+
+vim.g.mkdp_browser = { "/bin/firefox" }
+vim.g.mkdp_auto_start = 1
+

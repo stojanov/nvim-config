@@ -16,9 +16,9 @@ return {
             n = { ["q"] = require("telescope.actions").close },
         },
         file_ignore_patterns = {
-            "node_modules",
-            "build",
-            "vendor"
+            "node_modules/",
+            "build/",
+            "vendor/"
         }
     },
 
