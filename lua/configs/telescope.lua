@@ -18,10 +18,16 @@ return {
         file_ignore_patterns = {
             "node_modules/",
             "build/",
-            "vendor/"
-        }
+            "vendor/",
+        },
     },
 
     extensions_list = { "themes", "terms" },
     extensions = {},
+
+    pickers = {
+        colorscheme = {
+            enable_preview = true,
+        },
+    },
 }

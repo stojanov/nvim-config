@@ -1,14 +1,13 @@
-
 local keymap = vim.api.nvim_set_keymap
 
-keymap('', '<leader>cg', ':CMakeGenerate<cr>', {})
-keymap('', '<leader>cb', ':CMakeBuild<cr>', {})
-keymap('', '<leader>cc', ':CMakeClean<cr>', {})
-keymap('', '<leader>cq', ':CMakeClean<cr>', {})
+keymap("", "<leader>cg", ":CMakeGenerate<cr>", {})
+keymap("", "<leader>cb", ":CMakeBuild<cr>", {})
+keymap("", "<leader>cc", ":CMakeClean<cr>", {})
+keymap("", "<leader>cq", ":CMakeClean<cr>", {})
 
-keymap('n', '<C-d>', '<C-d>zz', { noremap = true })
-keymap('n', '<C-u>', '<C-u>zz', { noremap = true })
-keymap('', '<leader>ko', '<cmd>lua vim.cmd.ClangdSwitchSourceHeader()<CR>', {})
+keymap("n", "<C-d>", "<C-d>zz", { noremap = true })
+keymap("n", "<C-u>", "<C-u>zz", { noremap = true })
+keymap("", "<leader>ko", "<cmd>lua vim.cmd.ClangdSwitchSourceHeader()<CR>", {})
 
 local map = vim.keymap.set
 
@@ -41,13 +40,30 @@ map("n", "<leader>pt", "<cmd>Telescope terms<CR>", { desc = "telescope pick hidd
 
 map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "telescope find files" })
 map(
-  "n",
-  "<leader>fa",
-  "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>",
-  { desc = "telescope find all files" }
+    "n",
+    "<leader>fa",
+    "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>",
+    { desc = "telescope find all files" }
 )
 
 map("n", "<leader>fs", "<cmd>Telescope lsp_document_symbols<CR>")
 map("n", "<leader>fS", "<cmd>Telescope lsp_dynamic_workspace symbols<CR>")
 map("n", "<leader>fr", "<cmd>Telescope lsp_references<CR>")
 map("n", "<leader>fb", "<cmd>Telescope buffers<CR>")
+map("n", "<leader>th", "<cmd>Telescope colorscheme<CR>")
+
+map("n", "<leader>z", "<cmd>ZenMode<CR>")
+
+map("n", "<leader>fo", function()
+    local state = require "state"
+    state.format_on_save = not state.format_on_save
+
+    local ministate = "enabled"
+    if state.format_on_save == false then
+        ministate = "disabled"
+    end
+
+    vim.notify("Auto formatting " .. ministate, vim.log.levels.INFO, {
+        title = "State",
+    })
+end)

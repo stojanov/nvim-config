@@ -1,14 +1,14 @@
 return {
     {
-        "nvim-tree/nvim-web-devicons"
+        "nvim-tree/nvim-web-devicons",
     },
     {
         "nvim-lua/plenary.nvim",
     },
     {
         "stevearc/conform.nvim",
-        -- event = 'BufWritePre', -- uncomment for format on save
-        config = function()
+        event = "VeryLazy", -- uncomment for format on save
+        opts = function()
             require "configs.conform"
         end,
     },
@@ -20,6 +20,17 @@ return {
         event = "VeryLazy",
         config = function()
             require "configs.lspconfig"
+        end,
+    },
+    {
+        "rcarriga/nvim-notify",
+        event = "VeryLazy",
+        opts = function()
+            vim.notify = require "notify"
+
+            return {
+                timeout = 1000,
+            }
         end,
     },
     {
@@ -37,11 +48,39 @@ return {
         opts = {},
     },
     {
-      "smjonas/inc-rename.nvim",
-      event = "VeryLazy",
-      config = function()
-        require("configs.increname")
-      end,
+        "lewis6991/gitsigns.nvim",
+        event = "VeryLazy",
+        opts = function()
+            require("gitsigns").setup {
+                signcolumn = true,
+            }
+        end,
+    },
+    {
+        "nvim-focus/focus.nvim",
+        version = "*",
+        event = "VeryLazy",
+        opts = function()
+            require("focus").setup()
+        end,
+    },
+    {
+        "folke/zen-mode.nvim",
+        cmd = "ZenMode",
+        opts = function()
+            return {
+                window = {
+                    width = 0.7,
+                },
+            }
+        end,
+    },
+    {
+        "smjonas/inc-rename.nvim",
+        event = "VeryLazy",
+        config = function()
+            require "configs.increname"
+        end,
     },
     {
         "hrsh7th/nvim-cmp",
@@ -139,13 +178,6 @@ return {
         end,
     },
     {
-        "nvimtools/none-ls.nvim",
-        event = "VeryLazy",
-        opts = function()
-            return require "configs.none-ls"
-        end,
-    },
-    {
         "williamboman/mason.nvim",
         event = "VeryLazy",
         opts = function()
@@ -153,7 +185,7 @@ return {
         end,
     },
     {
-	"williamboman/mason-lspconfig.nvim",
+        "williamboman/mason-lspconfig.nvim",
     },
     {
         "nvim-tree/nvim-tree.lua",
@@ -192,7 +224,7 @@ return {
         event = "VeryLazy",
         config = function(_, opts)
             require("treesitter-context").setup()
-        end
+        end,
     },
     {
         "nvim-treesitter/nvim-treesitter",
@@ -207,21 +239,21 @@ return {
         end,
     },
     {
-        'nvim-lualine/lualine.nvim',
-        dependencies = { 
-            'nvim-tree/nvim-web-devicons'
+        "nvim-lualine/lualine.nvim",
+        dependencies = {
+            "nvim-tree/nvim-web-devicons",
         },
         event = "VeryLazy",
         config = function(_, opts)
             require("lualine").setup()
-        end
+        end,
     },
     -- themes
     {
         "killitar/obscure.nvim",
         lazy = false,
         priority = 1000,
-        opts = {}
+        opts = {},
     },
     {
         "rebelot/kanagawa.nvim",
@@ -230,9 +262,8 @@ return {
         "folke/trouble.nvim",
         cmd = "Trouble",
         opts = function()
-            require("configs.trouble")
+            require "configs.trouble"
         end,
-        keys = require("configs.trouble_mappings")
-    }
+        keys = require "configs.trouble_mappings",
+    },
 }
-

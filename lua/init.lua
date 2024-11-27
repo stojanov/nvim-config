@@ -1,16 +1,20 @@
-vim.wo.relativenumber = true
-
 local opt = vim.opt
+local wo = vim.wo
 local o = vim.o
 local g = vim.g
 
+-- vim.api.nvim_create_autocmd("LspAttach", {
+--     callback = function(args)
+--         local client = vim.lsp.get_client_by_id(args.data.client_id)
+--         -- client.server_capabilities.semanticTokensProvider = nil
+--     end,
+-- })
 
-vim.api.nvim_create_autocmd("LspAttach", {
-    callback = function(args)
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
-        client.server_capabilities.semanticTokensProvider = nil
-    end,
-})
+wo.wrap = false
+wo.relativenumber = true
+wo.signcolumn = "yes"
+
+o.termguicolors = true
 
 o.laststatus = 3
 o.showmode = false
@@ -64,5 +68,6 @@ local sep = is_windows and "\\" or "/"
 local delim = is_windows and ";" or ":"
 vim.env.PATH = table.concat({ vim.fn.stdpath "data", "mason", "bin" }, sep) .. delim .. vim.env.PATH
 
-
-vim.cmd[[colorscheme obscure]]
+require "colorscheme"
+require "auto_cmds"
+-- vim.cmd [[colorscheme obscure]]

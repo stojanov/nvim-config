@@ -1,15 +1,32 @@
-local options = {
-  formatters_by_ft = {
-    lua = { "stylua" },
-    -- css = { "prettier" },
-    -- html = { "prettier" },
-  },
+local conform = require "conform"
 
-  -- format_on_save = {
-  --   -- These options will be passed to conform.format()
-  --   timeout_ms = 500,
-  --   lsp_fallback = true,
-  -- },
+local options = {
+    formatters_by_ft = {
+        lua = { "stylua" },
+        cpp = { "clang_format" },
+        go = { "goimports", "gofmt" },
+        python = { "black" },
+    },
+
+    format_on_save = {
+        -- These options will be passed to conform.format()
+        timeout_ms = 500,
+        lsp_format = "fallback",
+    },
+
+    notify_on_error = true,
+    notify_no_formatters = true,
 }
 
-require("conform").setup(options)
+conform.setup(options)
+
+local state = require "state"
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = "*",
+    callback = function(args)
+        if state.format_on_save then
+            conform.format { bufnr = args.buf }
+        end
+    end,
+})

@@ -19,7 +19,6 @@ local function on_attach(_, bufnr)
     end, opts "List workspace folders")
 
     map("n", "<leader>D", vim.lsp.buf.type_definition, opts "Go to type definition")
-    -- map("n", "<leader>ra", require "nvchad.lsp.renamer", opts "NvRenamer")
 
     map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts "Code action")
     map("n", "gr", vim.lsp.buf.references, opts "Show references")
@@ -77,6 +76,14 @@ lspconfig.pyright.setup {
 lspconfig.rust_analyzer.setup {
     on_attach = function(client, bufnr)
         vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = bufnr,
+            callback = function()
+                vim.lsp.buf.format({ async = true })
+            end
+        })
+
         on_attach(client, bufnr)
     end,
     capabilities = capabilities,
@@ -97,7 +104,18 @@ lspconfig.rust_analyzer.setup {
             procMacro = {
                 enable = true,
             },
-            checkOnSave = false,
+        	checkOnSave = {
+                allFeatures = true,
+                command = "clippy",
+                extraArgs = {
+                    "--",
+                    "--no-deps",
+                    "-Dclippy::correctness",
+                    "-Dclippy::complexity",
+                    "-Wclippy::perf",
+                    "-Wclippy::pedantic",
+                },
+	    	},
         },
     },
 }
@@ -107,7 +125,7 @@ lspconfig.bashls.setup {
     capabilities = capabilities,
 }
 
-lspconfig.cmake.setup {
+lspconfig.neocmake.setup {
     on_attach = on_attach,
     capabilities = capabilities,
 }
