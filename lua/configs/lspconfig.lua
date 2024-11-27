@@ -1,6 +1,7 @@
 local lspconfig = require "lspconfig"
 local util = require "lspconfig/util"
 local map = vim.keymap.set
+local state = require "state"
 
 local function on_attach(_, bufnr)
     local function opts(desc)
@@ -27,21 +28,21 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 capabilities.textDocument.completion.completionItem = {
-  documentationFormat = { "markdown", "plaintext" },
-  snippetSupport = true,
-  preselectSupport = true,
-  insertReplaceSupport = true,
-  labelDetailsSupport = true,
-  deprecatedSupport = true,
-  commitCharactersSupport = true,
-  tagSupport = { valueSet = { 1 } },
-  resolveSupport = {
-    properties = {
-      "documentation",
-      "detail",
-      "additionalTextEdits",
+    documentationFormat = { "markdown", "plaintext" },
+    snippetSupport = true,
+    preselectSupport = true,
+    insertReplaceSupport = true,
+    labelDetailsSupport = true,
+    deprecatedSupport = true,
+    commitCharactersSupport = true,
+    tagSupport = { valueSet = { 1 } },
+    resolveSupport = {
+        properties = {
+            "documentation",
+            "detail",
+            "additionalTextEdits",
+        },
     },
-  },
 }
 
 lspconfig.clangd.setup {
@@ -80,8 +81,10 @@ lspconfig.rust_analyzer.setup {
         vim.api.nvim_create_autocmd("BufWritePre", {
             buffer = bufnr,
             callback = function()
-                vim.lsp.buf.format({ async = true })
-            end
+                if state.format_on_save then
+                    vim.lsp.buf.format { async = true }
+                end
+            end,
         })
 
         on_attach(client, bufnr)
@@ -104,7 +107,7 @@ lspconfig.rust_analyzer.setup {
             procMacro = {
                 enable = true,
             },
-        	checkOnSave = {
+            checkOnSave = {
                 allFeatures = true,
                 command = "clippy",
                 extraArgs = {
@@ -115,7 +118,7 @@ lspconfig.rust_analyzer.setup {
                     "-Wclippy::perf",
                     "-Wclippy::pedantic",
                 },
-	    	},
+            },
         },
     },
 }
