@@ -19,11 +19,6 @@ require("lazy").setup({
 }, lazy_config)
 
 -- load theme
-
-vim.schedule(function()
-    require "mappings"
-end)
-
 require "init"
 
 vim.g.mkdp_browser = { "/bin/firefox" }

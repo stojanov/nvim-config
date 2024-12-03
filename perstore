@@ -1,0 +1,9 @@
+state:
+    format_on_save: true
+    current_colorscheme: obscure
+
+test_state:
+    woo: as
+    test_prop: TEST
+
+

@@ -23,6 +23,12 @@ return {
         end,
     },
     {
+        "stojanov/perstore",
+        lazy = false,
+        opts = {},
+        dependencies = { "nvim-neotest/nvim-nio" },
+    },
+    {
         "rcarriga/nvim-notify",
         event = "VeryLazy",
         opts = function()

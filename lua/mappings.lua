@@ -7,7 +7,7 @@ keymap("", "<leader>cq", ":CMakeClean<cr>", {})
 
 keymap("n", "<C-d>", "<C-d>zz", { noremap = true })
 keymap("n", "<C-u>", "<C-u>zz", { noremap = true })
-keymap("", "<leader>ko", "<cmd>lua vim.cmd.ClangdSwitchSourceHeader()<CR>", {})
+keymap("n", "<leader>ko", "<cmd>lua vim.cmd.ClangdSwitchSourceHeader()<CR>", {})
 
 local map = vim.keymap.set
 
@@ -55,7 +55,8 @@ map("n", "<leader>th", "<cmd>Telescope colorscheme<CR>")
 map("n", "<leader>z", "<cmd>ZenMode<CR>")
 
 map("n", "<leader>fo", function()
-    local state = require "state"
+    local state = require "state"()
+
     state.format_on_save = not state.format_on_save
 
     local ministate = "enabled"

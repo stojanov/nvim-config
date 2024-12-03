@@ -6,10 +6,10 @@ local options = {
         cpp = { "clang_format" },
         go = { "goimports", "gofmt" },
         python = { "black" },
+        cmake = { "cmake_format" },
     },
 
     format_on_save = {
-        -- These options will be passed to conform.format()
         timeout_ms = 500,
         lsp_format = "fallback",
     },
@@ -25,7 +25,7 @@ local state = require "state"
 vim.api.nvim_create_autocmd("BufWritePre", {
     pattern = "*",
     callback = function(args)
-        if state.format_on_save then
+        if state().format_on_save then
             conform.format { bufnr = args.buf }
         end
     end,
