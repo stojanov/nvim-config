@@ -68,3 +68,50 @@ map("n", "<leader>fo", function()
         title = "State",
     })
 end)
+
+map("n", "<leader>n", function()
+    MiniFiles.open()
+end)
+
+local dap = require "dap"
+local dapui = require "dapui"
+
+map("n", "<leader>db", function()
+    dap.toggle_breakpoint()
+end)
+
+map("n", "<leader>dc", function()
+    dap.continue()
+end)
+
+map("n", "<leader>ds", function()
+    dap.step_over()
+end)
+
+map("n", "<leader>di", function()
+    dap.step_into()
+end)
+
+map("n", "<leader>de", function()
+    dapui.eval()
+end)
+
+map("n", "<leader>do", function()
+    dap.focus_frame()
+end)
+
+map("n", "<leader>du", function()
+    dap.up()
+end)
+
+map("n", "<leader>dd", function()
+    dap.down()
+end)
+
+map("n", "<leader>Ds", function()
+    dapui.float_element("stacks", { enter = true, position = "center" })
+end)
+
+map("n", "<leader>Dc", function()
+    dapui.float_element("scopes", { enter = true, position = "center" })
+end)

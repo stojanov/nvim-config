@@ -21,6 +21,21 @@ return {
         config = function()
             require "configs.lspconfig"
         end,
+        dependencies = { "saghen/blink.cmp" },
+    },
+    {
+        "echasnovski/mini.files",
+        version = false,
+        lazy = false,
+        opts = {},
+    },
+    {
+        "echasnovski/mini.cursorword",
+        version = false,
+        lazy = false,
+        opts = {
+            delay = 350,
+        },
     },
     {
         "stojanov/perstore",
@@ -88,54 +103,53 @@ return {
             require "configs.increname"
         end,
     },
+    { "rafamadriz/friendly-snippets" },
     {
-        "hrsh7th/nvim-cmp",
-        event = "VeryLazy",
-        dependencies = {
-            {
-                -- snippet plugin
-                "L3MON4D3/LuaSnip",
-                dependencies = "rafamadriz/friendly-snippets",
-                opts = { history = true, updateevents = "TextChanged,TextChangedI" },
-                config = function(_, opts)
-                    require("luasnip").config.set_config(opts)
-                    require "configs.luasnip"
-                end,
-            },
-            {
-                "windwp/nvim-autopairs",
-                opts = {
-                    fast_wrap = {},
-                    disable_filetype = { "TelescopePrompt", "vim" },
-                },
-                config = function(_, opts)
-                    require("nvim-autopairs").setup(opts)
-
-                    -- setup cmp for autopairs
-                    local cmp_autopairs = require "nvim-autopairs.completion.cmp"
-                    require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
-                end,
-            },
-            {
-                "saadparwaiz1/cmp_luasnip",
-                "hrsh7th/cmp-nvim-lua",
-                "hrsh7th/cmp-nvim-lsp",
-                "hrsh7th/cmp-buffer",
-                "hrsh7th/cmp-path",
-                "hrsh7th/cmp-cmdline",
-            },
-        },
-        opts = function()
-            return require "configs.cmp"
-        end,
+        "windwp/nvim-autopairs",
+        event = "InsertEnter",
+        config = true,
     },
     {
-        "saadparwaiz1/cmp_luasnip",
-        "hrsh7th/cmp-nvim-lua",
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-path",
-        "hrsh7th/cmp-cmdline",
+        "saghen/blink.cmp",
+        dependencies = "rafamadriz/friendly-snippets",
+
+        version = "v0.*",
+
+        opts = {
+            keymap = { preset = "enter" },
+
+            completion = {
+                accept = {
+                    auto_brackets = {
+                        enabled = true,
+                    },
+                },
+                documentation = {
+                    auto_show = true,
+                    auto_show_delay_ms = 0,
+                    update_delay_ms = 0,
+                },
+
+                ghost_text = {
+                    enabled = false,
+                },
+            },
+
+            appearance = {
+                use_nvim_cmp_as_default = true,
+                nerd_font_variant = "mono",
+            },
+
+            signature = {
+                enabled = true,
+            },
+
+            sources = {
+                default = { "lsp", "path", "snippets", "buffer" },
+                cmdline = {},
+            },
+        },
+        opts_extend = { "sources.default" },
     },
     {
         "rcarriga/nvim-dap-ui",
@@ -169,11 +183,11 @@ return {
             -- require("core.utils").load_mappings("dap")
         end,
     },
-    {
-        "Civitasv/cmake-tools.nvim",
-        enabled = true,
-        lazy = false,
-    },
+    -- {
+    --     "Civitasv/cmake-tools.nvim",
+    --     enabled = true,
+    --     lazy = false,
+    -- },
     {
         "ThePrimeagen/harpoon",
         branch = "harpoon2",
@@ -206,14 +220,14 @@ return {
     --   ft = { 'rust' },
     --   lazy = false
     -- },
-    {
-        "ray-x/lsp_signature.nvim",
-        event = "VeryLazy",
-        opts = {},
-        config = function(_, opts)
-            require("lsp_signature").setup(opts)
-        end,
-    },
+    -- {
+    --     "ray-x/lsp_signature.nvim",
+    --     event = "VeryLazy",
+    --     opts = {},
+    --     config = function(_, opts)
+    --         require("lsp_signature").setup(opts)
+    --     end,
+    -- },
     {
         "iamcco/markdown-preview.nvim",
         cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
@@ -248,11 +262,33 @@ return {
         "nvim-lualine/lualine.nvim",
         dependencies = {
             "nvim-tree/nvim-web-devicons",
+            "arkav/lualine-lsp-progress",
         },
         event = "VeryLazy",
         config = function(_, opts)
-            require("lualine").setup()
+            require("lualine").setup {
+                sections = {
+                    lualine_a = { "mode" },
+                    lualine_b = { "branch", "diff", "diagnostics" },
+                    lualine_c = { "filename" },
+                    lualine_x = { "encoding", "fileformat", "filetype" },
+                    lualine_y = { "lsp_progress" },
+                    lualine_z = { "location" },
+                },
+            }
         end,
+    },
+    {
+        "folke/trouble.nvim",
+        cmd = "Trouble",
+        opts = function()
+            require "configs.trouble"
+        end,
+        keys = require "configs.trouble_mappings",
+    },
+    {
+        "OXY2DEV/markview.nvim",
+        lazy = false,
     },
     -- themes
     {
@@ -265,11 +301,34 @@ return {
         "rebelot/kanagawa.nvim",
     },
     {
-        "folke/trouble.nvim",
-        cmd = "Trouble",
-        opts = function()
-            require "configs.trouble"
+        "AlexvZyl/nordic.nvim",
+        lazy = false,
+        priority = 1000,
+        config = true,
+    },
+    {
+        "sainnhe/sonokai",
+        lazy = false,
+        priority = 1000,
+    },
+    { "bluz71/vim-moonfly-colors", name = "moonfly", lazy = false, priority = 1000 },
+    {
+        "arkav/lualine-lsp-progress",
+    },
+    {
+        "nyoom-engineering/oxocarbon.nvim",
+    },
+    {
+        "vague2k/vague.nvim",
+        config = true,
+    },
+    {
+        "cdmill/neomodern.nvim",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            require("neomodern").setup {}
+            require("neomodern").load()
         end,
-        keys = require "configs.trouble_mappings",
     },
 }

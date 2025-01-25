@@ -45,12 +45,30 @@ capabilities.textDocument.completion.completionItem = {
     },
 }
 
+capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
+
 lspconfig.clangd.setup {
     on_attach = function(client, bufnr)
         vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
         on_attach(client, bufnr)
     end,
     capabilities = capabilities,
+    cmd = {
+        "clangd",
+        "--background-index",
+        "--clang-tidy",
+        "--completion-style=detailed",
+        "--all-scopes-completion",
+        "--experimental-modules-support",
+        "-j=32",
+    },
+    root_markers = { ".clangd", "compile_commands.json" },
+    single_file_support = false,
+    root_dir = function(fname)
+        return require("lspconfig.util").root_pattern(".clangd", "compile_commands.json", "compile_flags.txt")(fname)
+            or vim.fn.getcwd()
+    end,
+    filetypes = { "c", "cpp", "cxx" },
 }
 
 lspconfig.gopls.setup {
@@ -81,7 +99,7 @@ lspconfig.rust_analyzer.setup {
         vim.api.nvim_create_autocmd("BufWritePre", {
             buffer = bufnr,
             callback = function()
-                if state.format_on_save then
+                if state().format_on_save then
                     vim.lsp.buf.format { async = true }
                 end
             end,
