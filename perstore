@@ -3,7 +3,7 @@ state:
     current_colorscheme: oxocarbon
 
 test_state:
-    woo: as
     test_prop: TEST
+    woo: as
 
 
