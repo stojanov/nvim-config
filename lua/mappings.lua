@@ -1,9 +1,10 @@
 local keymap = vim.api.nvim_set_keymap
 
-keymap("", "<leader>cg", ":CMakeGenerate<cr>", {})
-keymap("", "<leader>cb", ":CMakeBuild<cr>", {})
-keymap("", "<leader>cc", ":CMakeClean<cr>", {})
-keymap("", "<leader>cq", ":CMakeClean<cr>", {})
+keymap("n", "<leader>cg", ":CMakeGenerate<cr>", {})
+keymap("n", "<leader>cb", ":CMakeBuild<cr>", {})
+keymap("n", "<leader>cc", ":CMakeClean<cr>", {})
+keymap("n", "<leader>cd", ":CMakeDebug<cr>", {})
+keymap("n", "<leader>ct", ":CMakeSelectBuildTarget<cr>", {})
 
 keymap("n", "<C-d>", "<C-d>zz", { noremap = true })
 keymap("n", "<C-u>", "<C-u>zz", { noremap = true })
@@ -75,6 +76,10 @@ end)
 
 local dap = require "dap"
 local dapui = require "dapui"
+
+map("n", "<leader>dt", function()
+    dap.terminate()
+end)
 
 map("n", "<leader>db", function()
     dap.toggle_breakpoint()

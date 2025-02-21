@@ -1,5 +1,6 @@
 local group = vim.api.nvim_create_augroup("GlobalSignColumn", { clear = true })
 local state = require "state"
+local themes = require "theme_defaults"
 
 vim.api.nvim_create_autocmd("BufEnter", {
     group = group,
@@ -15,5 +16,11 @@ vim.api.nvim_create_autocmd("ColorSchemePre", {
         if s then
             s.current_colorscheme = args.match
         end
+    end,
+})
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+    callback = function()
+        themes.apply_telescope_highlight()
     end,
 })

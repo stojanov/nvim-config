@@ -1,4 +1,3 @@
+local zoxide = require("telescope").extensions.zoxide
 
-local zoxide = require('telescope').extensions.zoxide;
-
-vim.keymap.set("n", "<leader>cd", zoxide.list)
+-- vim.keymap.set("n", "<leader>cd", zoxide.list)

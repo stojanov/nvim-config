@@ -6,6 +6,12 @@ return {
         "nvim-lua/plenary.nvim",
     },
     {
+        "stevearc/overseer.nvim",
+        opts = {},
+        lazy = false,
+        config = true,
+    },
+    {
         "stevearc/conform.nvim",
         event = "VeryLazy", -- uncomment for format on save
         opts = function()
@@ -133,6 +139,16 @@ return {
                 ghost_text = {
                     enabled = false,
                 },
+                list = {
+                    selection = {
+                        preselect = function(ctx)
+                            return ctx.mode ~= "cmdline"
+                        end,
+                        auto_insert = function(ctx)
+                            return ctx.mode ~= "cmdline"
+                        end,
+                    },
+                },
             },
 
             appearance = {
@@ -146,7 +162,6 @@ return {
 
             sources = {
                 default = { "lsp", "path", "snippets", "buffer" },
-                cmdline = {},
             },
         },
         opts_extend = { "sources.default" },
@@ -180,14 +195,21 @@ return {
     {
         "mfussenegger/nvim-dap",
         config = function(_, _)
+            require "configs.dap"
             -- require("core.utils").load_mappings("dap")
         end,
     },
-    -- {
-    --     "Civitasv/cmake-tools.nvim",
-    --     enabled = true,
-    --     lazy = false,
-    -- },
+    {
+        "Civitasv/cmake-tools.nvim",
+        enabled = true,
+        lazy = false,
+        dependencies = {
+            "stevearc/overseer.nvim",
+        },
+        config = function()
+            require "configs.cmake_tools"
+        end,
+    },
     {
         "ThePrimeagen/harpoon",
         branch = "harpoon2",
@@ -261,21 +283,15 @@ return {
     {
         "nvim-lualine/lualine.nvim",
         dependencies = {
+            "Civitasv/cmake-tools.nvim",
             "nvim-tree/nvim-web-devicons",
             "arkav/lualine-lsp-progress",
         },
         event = "VeryLazy",
         config = function(_, opts)
-            require("lualine").setup {
-                sections = {
-                    lualine_a = { "mode" },
-                    lualine_b = { "branch", "diff", "diagnostics" },
-                    lualine_c = { "filename" },
-                    lualine_x = { "encoding", "fileformat", "filetype" },
-                    lualine_y = { "lsp_progress" },
-                    lualine_z = { "location" },
-                },
-            }
+            local config = require "configs.lualine"
+
+            require("lualine").setup(config)
         end,
     },
     {
@@ -289,6 +305,9 @@ return {
     {
         "OXY2DEV/markview.nvim",
         lazy = false,
+    },
+    {
+        "arkav/lualine-lsp-progress",
     },
     -- themes
     {
@@ -313,9 +332,6 @@ return {
     },
     { "bluz71/vim-moonfly-colors", name = "moonfly", lazy = false, priority = 1000 },
     {
-        "arkav/lualine-lsp-progress",
-    },
-    {
         "nyoom-engineering/oxocarbon.nvim",
     },
     {
@@ -330,5 +346,15 @@ return {
             require("neomodern").setup {}
             require("neomodern").load()
         end,
+    },
+    {
+        "mellow-theme/mellow.nvim",
+        lazy = false,
+    },
+    {
+        "folke/tokyonight.nvim",
+        lazy = false,
+        priority = 1000,
+        opts = {},
     },
 }

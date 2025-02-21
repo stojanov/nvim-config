@@ -23,3 +23,8 @@ require "init"
 
 vim.g.mkdp_browser = { "/bin/firefox" }
 vim.g.mkdp_auto_start = 1
+
+vim.cmd [[
+  highlight TelescopeSelection guibg=#44475a guifg=#ffffff
+  highlight TelescopeSelectionCaret guifg=#ff79c6 guibg=#44475a
+]]

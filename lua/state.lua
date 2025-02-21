@@ -4,11 +4,12 @@ local state = {
 }
 
 local perstore = require "perstore"
+local themes = require "theme_defaults"
 
 return perstore.add_store {
     name = "state",
     on_loaded = function(got_state)
-        vim.cmd("colorscheme " .. got_state.current_colorscheme)
+        themes.change_theme(got_state.current_colorscheme)
 
         local format_state = "enabled"
 
