@@ -23,6 +23,8 @@ local function on_attach(_, bufnr)
 
     map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts "Code action")
     map("n", "gr", vim.lsp.buf.references, opts "Show references")
+
+    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -49,7 +51,6 @@ capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
 lspconfig.clangd.setup {
     on_attach = function(client, bufnr)
-        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
         on_attach(client, bufnr)
     end,
     capabilities = capabilities,
@@ -92,10 +93,20 @@ lspconfig.pyright.setup {
     capabilities = capabilities,
 }
 
+lspconfig.hls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = { "haskell", "lhaskell", "cabal" },
+}
+
+lspconfig.elixirls.setup {
+    cmd = { "/usr/lib/elixir-ls/language_server.sh" },
+    on_attach = on_attach,
+    capabilities = capabilities,
+}
+
 lspconfig.rust_analyzer.setup {
     on_attach = function(client, bufnr)
-        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-
         vim.api.nvim_create_autocmd("BufWritePre", {
             buffer = bufnr,
             callback = function()

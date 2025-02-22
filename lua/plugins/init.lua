@@ -109,6 +109,13 @@ return {
             require "configs.increname"
         end,
     },
+    {
+        "mfussenegger/nvim-lint",
+        event = "VeryLazy",
+        config = function()
+            require "configs.lint"
+        end,
+    },
     { "rafamadriz/friendly-snippets" },
     {
         "windwp/nvim-autopairs",

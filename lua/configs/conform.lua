@@ -7,6 +7,11 @@ local options = {
         go = { "goimports", "gofmt" },
         python = { "black" },
         cmake = { "cmake_format" },
+        haskell = { "fourmolu" },
+        elixir = { "mix" },
+        javascript = { "prettier" },
+        typescript = { "prettier" },
+        json = { "prettier" },
     },
 
     format_on_save = {

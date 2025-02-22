@@ -1,6 +1,6 @@
 state:
+    current_colorscheme: obscure
     format_on_save: true
-    current_colorscheme: oxocarbon
 
 test_state:
     test_prop: TEST
