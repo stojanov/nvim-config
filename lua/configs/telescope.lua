@@ -19,6 +19,7 @@ return {
             "node_modules/",
             "build/",
             "vendor/",
+            "target/",
         },
     },
 

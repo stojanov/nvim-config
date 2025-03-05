@@ -12,6 +12,7 @@ local options = {
         javascript = { "prettier" },
         typescript = { "prettier" },
         json = { "prettier" },
+        rust = { "rustfmt" },
     },
 
     format_on_save = {
