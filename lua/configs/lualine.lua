@@ -69,10 +69,39 @@ local cmake_target = {
 }
 
 return {
+    winbar = {
+        lualine_b = {
+            {
+                "filename",
+                path = 1,
+            },
+            -- not using this but a cool addon
+        },
+        lualine_a = {},
+        lualine_c = {
+            -- trouble_line,
+        },
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = {},
+    },
+    inactive_winbar = {
+        lualine_b = {
+            {
+                "filename",
+                path = 1,
+            },
+        },
+        lualine_a = {},
+        lualine_c = {},
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = {},
+    },
     sections = {
         lualine_a = { "mode" },
         lualine_b = { "branch", "diff", "diagnostics" },
-        lualine_c = { "filename", trouble_line },
+        lualine_c = { "filename" },
         lualine_x = { cmake_presets, cmake_build_type, cmake_target, "encoding", "fileformat", "filetype" },
         lualine_y = { "lsp_progress" },
         lualine_z = { "location" },

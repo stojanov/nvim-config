@@ -5,12 +5,12 @@ local M = {
     },
     {
         "<leader>xf",
-        "<cmd>Trouble diagnostics toggle filter=buf=0<cr>"
+        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
     },
     {
         "<leader>xs",
-        "<cmd>Trouble symbols toggle focus=true pinned=true win.relative=win win.position=left<cr>"
-    }
+        "<cmd>Trouble symbols toggle focus=true pinned=true win.relative=win win.position=left<cr>",
+    },
 }
 
-return M;
+return M

@@ -134,7 +134,7 @@ return {
         "saghen/blink.cmp",
         dependencies = "rafamadriz/friendly-snippets",
 
-        version = "v0.*",
+        version = "1.*",
 
         opts = {
             keymap = { preset = "enter" },
@@ -147,8 +147,8 @@ return {
                 },
                 documentation = {
                     auto_show = true,
-                    auto_show_delay_ms = 0,
-                    update_delay_ms = 0,
+                    auto_show_delay_ms = 20,
+                    update_delay_ms = 50,
                 },
 
                 ghost_text = {
@@ -396,7 +396,7 @@ return {
             zen = { enabled = false },
         },
     },
-        {
+    {
         "kdheepak/lazygit.nvim",
         lazy = true,
         cmd = {
