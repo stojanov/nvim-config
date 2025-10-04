@@ -8,9 +8,25 @@ keymap("n", "<leader>ct", ":CMakeSelectBuildTarget<cr>", {})
 
 keymap("n", "<C-d>", "<C-d>zz", { noremap = true })
 keymap("n", "<C-u>", "<C-u>zz", { noremap = true })
-keymap("n", "<leader>ko", "<cmd>lua vim.cmd.ClangdSwitchSourceHeader()<CR>", {})
 
 local map = vim.keymap.set
+
+-- map("n", "<leader>ko", function()
+--     bufnr = vim.api.nvim_get_current_buf()
+--     local params = { uri = vim.uri_from_bufnr(bufnr) }
+--
+--     vim.lsp.buf_request(
+--         bufnr,
+--         "textDocument/switchSourceHeader",
+--         params,
+--         function(err, result)
+--             if err then error(tostring(err)) end
+--             if not result then print ("Corresponding file can’t be determined") return end
+--             -- vim.notify("RESULT " .. tostring(result))
+--             vim.api.nvim_command('edit '..vim.uri_to_fname(result))
+--         end
+--     )
+-- end, {})
 
 map("n", "<C-h>", "<C-w>h", { desc = "switch window left" })
 map("n", "<C-l>", "<C-w>l", { desc = "switch window right" })
@@ -148,14 +164,3 @@ map("n", "<leader>wl", function()
     vim.api.nvim_win_set_buf(0, buf)
     vim.notify "LEFT MOVE"
 end, { desc = "Move buffer to right window" })
-
-function _G.ReloadConfig()
-    for name, _ in pairs(package.loaded) do
-        if name:match "^user" or name:match "^plugins" then
-            package.loaded[name] = nil
-        end
-    end
-    dofile(vim.fn.stdpath "config" .. "/init.lua")
-end
-
-vim.keymap.set("n", "<leader>lr", ReloadConfig, { desc = "Reload Neovim config" })

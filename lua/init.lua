@@ -72,7 +72,34 @@ local sep = is_windows and "\\" or "/"
 local delim = is_windows and ";" or ":"
 vim.env.PATH = table.concat({ vim.fn.stdpath "data", "mason", "bin" }, sep) .. delim .. vim.env.PATH
 
-require "auto_cmds"
-require "mappings"
+-- require "auto_cmds"
+-- require "mappings"
+
+vim.lsp.enable "bashls"
+vim.lsp.enable "clangd"
+vim.lsp.enable "gopls"
+vim.lsp.enable "hls"
+vim.lsp.enable "lua_ls"
+vim.lsp.enable "neocmake"
+vim.lsp.enable "pyright"
+vim.lsp.enable "rust_analyzer"
+vim.lsp.enable "ts_ls"
+
+
+function dump(o)
+   if type(o) == 'table' then
+      local s = '{ '
+      for k,v in pairs(o) do
+         if type(k) ~= 'number' then k = '"'..k..'"' end
+         s = s .. '['..k..'] = ' .. dump(v) .. ','
+      end
+      return s .. '} '
+   else
+      return tostring(o)
+   end
+end
+
+print("TEST")
+print(vim.lsp.config['clangd'])
 
 -- vim.cmd [[colorscheme obscure]]
