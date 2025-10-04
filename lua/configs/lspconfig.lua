@@ -15,9 +15,9 @@ local function on_attach(_, bufnr)
     map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts "Add workspace folder")
     map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts "Remove workspace folder")
 
-    map("n", "<leader>wl", function()
-        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, opts "List workspace folders")
+    -- map("n", "<leader>wl", function()
+    --     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    -- end, opts "List workspace folders")
 
     map("n", "<leader>D", vim.lsp.buf.type_definition, opts "Go to type definition")
 
@@ -60,7 +60,9 @@ lspconfig.clangd.setup {
         "--clang-tidy",
         "--completion-style=detailed",
         "--all-scopes-completion",
-        "--experimental-modules-support",
+        -- "--experimental-modules-support",
+        "--header-insertion=never",
+        "--header-insertion-decorators=0",
         "-j=32",
     },
     root_markers = { ".clangd", "compile_commands.json" },

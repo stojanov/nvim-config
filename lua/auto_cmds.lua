@@ -6,6 +6,14 @@ vim.api.nvim_create_autocmd("BufEnter", {
     group = group,
     callback = function()
         vim.wo.signcolumn = "yes"
+        vim.o.signcolumn = "yes"
+    end,
+})
+
+vim.api.nvim_create_autocmd("WinEnter", {
+    group = group,
+    callback = function()
+        vim.wo.signcolumn = "yes"
     end,
 })
 

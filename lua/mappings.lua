@@ -49,7 +49,7 @@ map(
 )
 
 map("n", "<leader>fs", "<cmd>Telescope lsp_document_symbols<CR>")
-map("n", "<leader>fS", "<cmd>Telescope lsp_dynamic_workspace symbols<CR>")
+map("n", "<leader>fS", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>")
 map("n", "<leader>fr", "<cmd>Telescope lsp_references<CR>")
 map("n", "<leader>fb", "<cmd>Telescope buffers<CR>")
 map("n", "<leader>th", "<cmd>Telescope colorscheme<CR>")
@@ -133,3 +133,29 @@ end)
 map("n", "[[", function()
     Snacks.words.jump(-vim.v.count1)
 end)
+
+map("n", "<leader>wh", function()
+    local buf = vim.api.nvim_get_current_buf()
+    vim.cmd "wincmd h" -- move to left window
+    vim.api.nvim_win_set_buf(0, buf)
+    vim.notify "RIGHT MOVE"
+end, { desc = "Move buffer to left window" })
+
+-- Move current buffer to the window on the right
+map("n", "<leader>wl", function()
+    local buf = vim.api.nvim_get_current_buf()
+    vim.cmd "wincmd l" -- move to right window
+    vim.api.nvim_win_set_buf(0, buf)
+    vim.notify "LEFT MOVE"
+end, { desc = "Move buffer to right window" })
+
+function _G.ReloadConfig()
+    for name, _ in pairs(package.loaded) do
+        if name:match "^user" or name:match "^plugins" then
+            package.loaded[name] = nil
+        end
+    end
+    dofile(vim.fn.stdpath "config" .. "/init.lua")
+end
+
+vim.keymap.set("n", "<leader>lr", ReloadConfig, { desc = "Reload Neovim config" })

@@ -177,6 +177,12 @@ return {
 
             sources = {
                 default = { "lsp", "path", "snippets", "buffer" },
+                providers = {
+                    buffer = { score_offset = 70 },
+                    lsp = { score_offset = 60 },
+                    snippets = { score_offset = 50 },
+                    path = { score_offset = 40 },
+                },
             },
         },
         opts_extend = { "sources.default" },
@@ -265,19 +271,22 @@ return {
     --         require("lsp_signature").setup(opts)
     --     end,
     -- },
-    {
-        "iamcco/markdown-preview.nvim",
-        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-        ft = { "markdown" },
-        init = function()
-            vim.g.mkdp_browser = { "/bin/firefox" }
-        end,
-        build = function()
-            vim.fn["mkdp#util#install"]()
-        end,
-    },
+    -- {
+    --     "iamcco/markdown-preview.nvim",
+    --     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    --     ft = { "markdown" },
+    --     init = function()
+    --         vim.g.mkdp_browser = { "/bin/firefox" }
+    --     end,
+    --     build = function()
+    --         vim.fn["mkdp#util#install"]()
+    --     end,
+    -- },
     {
         "nvim-treesitter/nvim-treesitter-context",
+        dependencies = {
+            "OXY2DEV/markview.nvim",
+        },
         event = "VeryLazy",
         config = function(_, opts)
             require("treesitter-context").setup()
